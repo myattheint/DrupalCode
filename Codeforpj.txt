@@ -1,0 +1,55 @@
+//to install a MySQL client to interact with the database
+sudo apt-get install mysql-server
+sudo apt-get install mysql-client
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+//To set an environment variable for MySQL host
+export MYSQL_HOST=drupal.c9qky8s22evr.ap-southeast-1.rds.amazonaws.com
+
+//To connect to the MySQL database for Drupal using the command line  
+mysql --user=drupaladmin --password=hidrupal drupal
+
+//To create a database user for your Drupal application and give it permission to access the “drupal” database
+CREATE USER 'drupal' IDENTIFIED BY 'drupal-pass';
+GRANT ALL PRIVILEGES ON drupal.* TO drupal;
+FLUSH PRIVILEGES;
+Exit
+
+//To install the Apache web server on Ubuntu
+sudo apt update
+sudo apt install apache2
+sudo systemctl status apache2
+sudo systemctl enable apache2
+
+//To change a setting in your Apache configuration file and open the file with nano 
+sudo nano /etc/apache2/apache2.conf
+
+//To install PHP and the various PHP dependencies
+sudo apt update
+sudo apt install -y php8.1 php8.1-dom php8.1-gd php8.1-xml php8.1-opcache php8.1-mbstring
+php -v   //To verify PHP installation by checking the version
+sudo systemctl restart apache2
+
+//To install the PHP MySQL library
+sudo apt update
+sudo apt install -y php-mysql
+
+//To download and uncompress the Drupal software
+//wget to download the latest Drupal release as a compressed tarball (tar.gz)
+wget https://www.drupal.org/download-latest/tar.gz -O drupal-latest.tar.gz  
+tar -xzf drupal-latest.tar.gz   //tar to extract the contents of the downloaded tarball
+mv drupal-10.2.5/ drupal        //mv to rename the extracted folder to "drupal
+
+//To change into the drupal directory and copy the files into the Apache root 
+cd drupal   //To change Directory to Drupal Directory
+sudo rsync -avz . /var/www/html   //To copy Drupal Files to Document Root
+sudo chown -R www-data:www-data /var/www/html     //To change Ownership to Apache User and Group
+sudo systemctl restart apache2
+
+
+
+
+
+
+
